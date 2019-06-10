@@ -138,6 +138,32 @@ and (orientation : portrait) {
   text-shadow:0px 1px 0px #263666;
 }
 
+.conexion1 {
+  -moz-box-shadow:inset 0px 0px 15px 3px #1C1C1C;
+  -webkit-box-shadow:inset 0px 0px 15px 3px #1C1C1C;
+  box-shadow:inset 0px 0px 15px 3px #1C1C1C;
+  background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #2A2A2A), color-stop(1, #404040));
+  background:-moz-linear-gradient(top, #2A2A2A 5%, #404040 100%);
+  background:-webkit-linear-gradient(top, #2A2A2A 5%, #404040 100%);
+  background:-o-linear-gradient(top, #2A2A2A 5%, #404040 100%);
+  background:-ms-linear-gradient(top, #2A2A2A 5%, #404040 100%);
+  background:linear-gradient(to bottom, #2A2A2A 5%, #404040 100%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#2A2A2A', endColorstr='#404040',GradientType=0);
+  background-color:#2A2A2A;
+  -moz-border-radius:17px;
+  -webkit-border-radius:17px;
+  border-radius:17px;
+  border:1px solid #60c560;
+  display:inline-block;
+  /*cursor:pointer;*/
+  color:#60c560;
+  font-family:Arial;
+  font-size:15px;
+  padding:6px 13px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #263666;
+}
+
 *
 {
 -webkit-user-select: none;
@@ -163,17 +189,27 @@ user-drag: none;
 touch-callout: none;
 }
 
+.button_conexion {
+  width: 20px;
+  font-size: 20px;
+}
 </style>
 <body>
   <div data-role="page" id="index">
     <div data-theme="a" data-role="header">
-      <h3>
+      <!-- <h3>
         JUNTA ACCIONISTAS
       </h3>
-
+      -->
     </div>
     <div align="center">
       <div class="conexion contador" style="font-size: 20px"></div>
+    </div>
+    <div align="right">
+      <form class="form-vertical">
+        <input type="text" class="conexion1" id="ip" style="width: 25% !important;">
+        <div class="conexion1" id="conectar_ip">Conectar</div>
+      </form>
     </div>
     <div data-role="content" id="check-connection" align="center"> 
       <div class="conexion">Sin Conexión.</div>
@@ -185,7 +221,7 @@ touch-callout: none;
 
 
   <div data-role="page" id="butchers" >
-    <iframe id="cuadro_butchers" src="http://192.168.0.131/juntaaccionistas/valida_codigo2.php" style="border: 0;  width: 100%;">Error.</iframe>
+    <iframe id="cuadro_butchers" style="border: 0;  width: 100%;">Error.</iframe>
     <!-- <iframe id="cuadro_butchers" src="http://localhost/juntaaccionistas/valida_codigo2.php" style="border: 0; width: 100%;">Error.</iframe> -->
   </div>
 
@@ -195,7 +231,9 @@ touch-callout: none;
   var connectionStatus = false;
 
   $(document).on('pagebeforeshow', '#index', function () {
+    var ip = "";
     $('#check-connection').hide();
+    $('.contador').hide();
     setInterval(function () {
       connectionStatus = navigator.onLine ? 'online' : 'offline';
     }, 100);
@@ -214,7 +252,9 @@ touch-callout: none;
         // window.location.href = "detalles.html";
         // alert("cambio");
         // src="https://www.butchers-cbba.com/ordering/restaurant/menu?restaurant_uid=161bf5eb-2d4d-4365-aa0e-45512a6ce6b7&client_is_mobile=true&glfa_cid=1547340812.1529714508&glfa_t=1529714580185"
-        $('#butchers').attr('src', $('#butchers').attr('src'));
+        // $('#butchers').attr('src', $('#butchers').attr('src'));
+        $('#butchers').attr('src', "http://"+ip+"/juntaaccionistas/valida_codigo2.php");
+        $("#cuadro_butchers").attr('src', "http://"+ip+"/juntaaccionistas/valida_codigo2.php");
         window.location.href = "index.html#butchers"; // Comentado
         // var iframe = document.getElementById('#butchers');
         // iframe.src = iframe.src;
@@ -235,7 +275,26 @@ touch-callout: none;
         $('#check-connection').show(300);
       }
     }
-    setTimeout(valida_online, 5000); // Comentado
+
+    $('#conectar_ip').on('click', function () {
+      ip = $('#ip').val();
+      setTimeout(valida_online, 5000); // Comentado
+
+      $(document).on('click', '#check-connection', function () {
+        valida_online();
+      });
+      $('.contador').show();
+      var counter = 4;
+      var myInterval = setInterval(function () {
+        --counter;
+        $('.contador').text(counter);
+        if(counter=='0'){
+          // alert("stop");
+          clearInterval(myInterval);
+          $('.contador').hide();
+        }
+      }, 1000);
+    });    
 
     // screenWidth = screen.width;
     // screenHeight = screen.height;
@@ -252,20 +311,7 @@ touch-callout: none;
     //   }
     // }, 50);
 
-    $(document).on('click', '#check-connection', function () {
-      valida_online();
-    });
-    $('.contador').show();
-    var counter = 3;
-    var myInterval = setInterval(function () {
-      --counter;
-      $('.contador').text(counter);
-      if(counter=='0'){
-        // alert("stop");
-        clearInterval(myInterval);
-        $('.contador').hide();
-      }
-    }, 1000);
+    
 
 
   });
