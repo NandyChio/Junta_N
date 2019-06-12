@@ -207,7 +207,7 @@ touch-callout: none;
     </div>
     <div align="right">
       <form class="form-vertical">
-        <input type="text" class="conexion1" id="ip" style="width: 25% !important;margin-top: 30px;" value="Ingrese ip">
+        <input type="text" class="conexion1" id="ip" style="width: 25% !important;margin-top: 30px;">
         <div class="conexion1" id="conectar_ip">Conectar</div>
       </form>
     </div>
@@ -229,7 +229,7 @@ touch-callout: none;
 </body>
 <script type="text/javascript">
   var connectionStatus = false;
-
+  document.getElementById('ip').disabled = false;
   $(document).on('pagebeforeshow', '#index', function () {
     var ip = "";
     $('#check-connection').hide();
