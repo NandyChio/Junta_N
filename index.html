@@ -207,7 +207,7 @@ touch-callout: none;
     </div>
     <div align="right">
       <form class="form-vertical">
-        <input type="text" class="conexion1" id="ip" style="width: 25% !important;margin-top: 30px;">
+        <input type="text" class="conexion1" id="ip" style="width: 25% !important;margin-top: 30px;" onClick="this.select();">
         <div class="conexion1" id="conectar_ip">Conectar</div>
       </form>
     </div>
@@ -279,6 +279,8 @@ touch-callout: none;
     $('#conectar_ip').on('click', function () {
       ip = $('#ip').val();
       setTimeout(valida_online, 5000); // Comentado
+      $('#conectar_ip').hide();
+      $('#ip').hide();
 
       $(document).on('click', '#check-connection', function () {
         valida_online();
