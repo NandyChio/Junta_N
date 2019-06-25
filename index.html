@@ -96,10 +96,11 @@ and (orientation : portrait) {
     #index { 
       background-image:url(2.jpg); 
       /*background-image:url(corona1.jpg); */
-      /*background-repeat:no-repeat;*/
-      /*background-position:bottom center;*/
-      /*background-size:cover;  */
-      background-size: 100%;
+      background-repeat:no-repeat;
+      background-position:bottom center;
+      background-size:cover;  
+      background-size: 90%;
+      background-position: left top;
     }    
   }
   #butchers {
@@ -109,8 +110,6 @@ and (orientation : portrait) {
   #cuadro_butchers {
     height: 100vh;
   }
-
-
 
 .conexion {
   -moz-box-shadow:inset 0px 0px 15px 3px #1C1C1C;
@@ -193,9 +192,14 @@ touch-callout: none;
   width: 20px;
   font-size: 20px;
 }
+
+body {
+  background: #292425;
+}
+
 </style>
 <body>
-  <div data-role="page" id="index">
+  <div data-role="page" id="index" style="padding-bottom: 2px;min-height: 358px;margin-top: 20px;">
     <div data-theme="a" data-role="header">
       <!-- <h3>
         JUNTA ACCIONISTAS
@@ -207,7 +211,7 @@ touch-callout: none;
     </div>
     <div align="right">
       <form class="form-verticalkklk">
-        <textarea type="text" class="conexion1" id="ip" style="width: 25% !important;margin-top: 30px;" rows="1"></textarea>
+        <input type="text" class="conexion1" id="ip" style="width: 25% !important;margin-top: 30px;" value="167.192.0.31">
         <div class="conexion1" id="conectar_ip">Conectar</div>
       </form>
     </div>
